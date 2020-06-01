@@ -1,0 +1,71 @@
+--- git/Makefile	2020-05-27 23:23:42.488769260 -0700
++++ /home/bpayne/Makefile-pigpio	2020-05-27 23:23:06.704034907 -0700
+@@ -1,14 +1,14 @@
+ #
+ # Set CROSS_PREFIX to prepend to all compiler tools at once for easier
+ # cross-compilation.
+-CROSS_PREFIX =
+-CC           = $(CROSS_PREFIX)gcc
+-AR           = $(CROSS_PREFIX)ar
+-RANLIB       = $(CROSS_PREFIX)ranlib
+-SIZE         = $(CROSS_PREFIX)size
+-STRIP        = $(CROSS_PREFIX)strip
+-SHLIB        = $(CC) -shared
+-STRIPLIB     = $(STRIP) --strip-unneeded
++CROSS_PREFIX ?=
++CC           ?= $(CROSS_PREFIX)gcc
++AR           ?= $(CROSS_PREFIX)ar
++RANLIB       ?= $(CROSS_PREFIX)ranlib
++#SIZE         ?= $(CROSS_PREFIX)size
++STRIP        ?= $(CROSS_PREFIX)strip
++SHLIB        ?= $(CC) -shared
++STRIPLIB     ?= $(STRIP) --strip-unneeded
+ 
+ SOVERSION    = 1
+ 
+@@ -67,15 +67,15 @@
+ 
+ pigpiod:	pigpiod.o $(LIB1)
+ 	$(CC) -o pigpiod pigpiod.o $(LL1)
+-	$(STRIP) pigpiod
++#	$(STRIP) pigpiod
+ 
+ pigs:		pigs.o command.o
+ 	$(CC) -o pigs pigs.o command.o
+-	$(STRIP) pigs
++#	$(STRIP) pigs
+ 
+ pig2vcd:	pig2vcd.o
+ 	$(CC) -o pig2vcd pig2vcd.o
+-	$(STRIP) pig2vcd
++#	$(STRIP) pig2vcd
+ 
+ clean:
+ 	rm -f *.o *.i *.s *~ $(ALL) *.so.$(SOVERSION)
+@@ -138,20 +138,20 @@
+ $(LIB1):	$(OBJ1)
+ 	$(SHLIB) -pthread -Wl,-soname,$(LIB1).$(SOVERSION) -o $(LIB1).$(SOVERSION) $(OBJ1)
+ 	ln -fs $(LIB1).$(SOVERSION) $(LIB1)
+-	$(STRIPLIB) $(LIB1)
+-	$(SIZE)     $(LIB1)
++#	$(STRIPLIB) $(LIB1)
++#	$(SIZE)     $(LIB1)
+ 
+ $(LIB2):	$(OBJ2)
+ 	$(SHLIB) -pthread -Wl,-soname,$(LIB2).$(SOVERSION) -o $(LIB2).$(SOVERSION) $(OBJ2)
+ 	ln -fs $(LIB2).$(SOVERSION) $(LIB2)
+-	$(STRIPLIB) $(LIB2)
+-	$(SIZE)     $(LIB2)
++#	$(STRIPLIB) $(LIB2)
++#	$(SIZE)     $(LIB2)
+ 
+ $(LIB3):	$(OBJ3)
+ 	$(SHLIB) -pthread -Wl,-soname,$(LIB3).$(SOVERSION) -o $(LIB3).$(SOVERSION) $(OBJ3)
+ 	ln -fs $(LIB3).$(SOVERSION) $(LIB3)
+-	$(STRIPLIB) $(LIB3)
+-	$(SIZE)     $(LIB3)
++#	$(STRIPLIB) $(LIB3)
++#	$(SIZE)     $(LIB3)
+ 
+ # generated using gcc -MM *.c
+ 

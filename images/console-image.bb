@@ -16,6 +16,7 @@ WIFI = " \
 DEV_EXTRAS = " \
     serialecho  \
     spiloop \
+    pigpio \
 "
 
 RPI_STUFF = " \
@@ -31,6 +32,7 @@ IMAGE_INSTALL += " \
     ${WIFI} \
     ${SECURITY_TOOLS} \
     ${WIREGUARD} \
+    libsdl2 \
 "
 
 
