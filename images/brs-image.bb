@@ -6,6 +6,7 @@ require images/basic-image.bb
 DEPENDS += "bcm2835-bootfiles"
 
 DEV_EXTRAS = " \
+    libstdc++ \
     spiloop \
     pigpio \
 "
